@@ -236,6 +236,9 @@ tr:last-child td{border:none;}
 .whats-new-bar.visible{display:flex;}
 .whats-new-dismiss{margin-left:auto;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);color:white;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:600;white-space:nowrap;}
 .whats-new-dismiss:hover{background:rgba(255,255,255,0.28);}
+#refresh-banner{background:#eef4ff;border-bottom:1.5px solid #c5d5f0;padding:7px 28px;font-size:11.5px;color:#1a3a6b;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+#refresh-banner .rb-badge{background:#0a2240;color:#fff;border-radius:20px;padding:2px 10px;font-size:10px;font-weight:700;letter-spacing:.5px;}
+#refresh-banner .rb-badge.cached{background:#b45309;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
@@ -273,6 +276,7 @@ tr:last-child td{border:none;}
   <div class="nav-item" onclick="switchSection('signalchain',this)"><span class="icon">&#128268;</span> Signal Chain <span class="nav-badge badge-teal" style="background:#7c3aed;color:#fff;">3</span></div>
   <div class="nav-item" onclick="switchSection('hiring',this)"><span class="icon">&#128084;</span> Hiring Intelligence</div>
   <div class="nav-item" onclick="switchSection('cyient',this)"><span class="icon">&#128200;</span> Fast-Sell Skills <span class="nav-badge badge-teal">Fit Map</span></div>
+  <div class="nav-item" onclick="switchSection('actions',this)"><span class="icon">&#127919;</span> Sales Actions <span class="nav-badge badge-high">NEW</span></div>
   <div class="nav-item" onclick="switchSection('contacts',this)"><span class="icon">&#128100;</span> Key Contacts</div>
 
   <div class="nav-section-label">Specialist Functions</div>
@@ -380,6 +384,15 @@ tr:last-child td{border:none;}
         <span>Sign Out</span>
       </a>
     </div>
+  </div>
+
+  <div id="refresh-banner">
+    <span id="rb-badge" class="rb-badge">🔄 LOADING</span>
+    <span>Hiring data last refreshed: <strong id="rb-date">—</strong></span>
+    <span style="color:#5a6a8a;">·</span>
+    <span style="color:#5a6a8a;">Next auto-refresh: <span id="rb-next">—</span></span>
+    <span style="color:#5a6a8a;">·</span>
+    <span style="color:#5a6a8a;">Auto-refreshes every 5 days via GitHub Actions</span>
   </div>
 
   <div id="content">
@@ -1083,6 +1096,142 @@ tr:last-child td{border:none;}
     </div>
 
     <!-- CONTACTS -->
+    <!-- ═══════════════════════ TARGETED SALES ACTIONS ═══ -->
+    <div id="sec-actions" class="section">
+      <h2 class="section-title">🎯 Targeted Sales Actions — Textron Group</h2>
+      <p class="section-subtitle" style="font-size:13px;color:#666;margin-bottom:16px;">Prioritized by urgency across Bell Flight · Textron Aviation · Textron Systems</p>
+
+      <div style="background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:8px;padding:10px 16px;font-size:12px;color:#1b5e20;margin-bottom:20px;">
+        ✅ <strong>Lead every conversation with:</strong> Cyient's Bell active staffing relationship · AS9100 certified · DO-178C Part 29 rotorcraft experience · 3,000+ aerospace engineers globally · King Air AMM delivery track record
+      </div>
+
+      <!-- BELL FLIGHT -->
+      <div style="border-radius:12px;overflow:hidden;margin-bottom:20px;border:1.5px solid #ffc9c9;">
+        <div style="background:linear-gradient(135deg,#8b0000,#c8192a);padding:12px 18px;color:#fff;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:20px;">🚁</span>
+          <div>
+            <div style="font-size:14px;font-weight:800;">Bell Flight</div>
+            <div style="font-size:11px;opacity:.85;">Fort Worth TX · Amarillo TX · Mirabel QC · Piney Flats TN</div>
+          </div>
+          <span style="margin-left:auto;background:rgba(255,255,255,0.2);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:700;">~210+ open roles</span>
+        </div>
+        <div style="padding:16px 18px;display:flex;flex-direction:column;gap:11px;">
+          <div style="display:flex;gap:11px;background:#fff5f5;border-radius:8px;padding:11px 14px;border-left:4px solid #c62828;">
+            <div style="background:#c62828;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">1</div>
+            <div style="font-size:12px;line-height:1.6;">
+              <strong>🔴 V-280 FLRAA Composite Structures Ramp — Fort Worth TX (HOT)</strong><br/>
+              V-280 Valor is now awarded and entering low-rate production. Bell urgently needs composite manufacturing engineers, FEA/stress analysts, and systems engineers for FLRAA airframe and rotor scale-up. Cyient's embedded engineering model is the fastest path to headcount.<br/>
+              <span style="color:#8b0000;">📌 Target: Russell Cole (Mfg Eng Mgr – FLRAA Producibility) · Dennis Norton (Director Strategic Sourcing)</span><br/>
+              <span style="color:#c62828;font-size:11px;">⚡ Fast-sell: Composites Mfg Eng · FEA/Stress (ANSYS/Nastran) · CATIA V5 · FLRAA producibility</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:11px;background:#fff5f5;border-radius:8px;padding:11px 14px;border-left:4px solid #c62828;">
+            <div style="background:#c62828;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">2</div>
+            <div style="font-size:12px;line-height:1.6;">
+              <strong>🔴 Bell 525 Relentless — FBW & Avionics SW Cert — Fort Worth TX</strong><br/>
+              Bell 525 is in Part 29 FBW and avionics certification, requiring DO-178C/DO-254 engineers for FMS, fly-by-wire, and cockpit display integration. All commercial cert work — no clearance required. Cyient DLM has Part 29 avionics cert experience.<br/>
+              <span style="color:#8b0000;">📌 Target: Paul Wilson (Chief Engineer V-280/525) · Bell 525 Avionics TA Business Partner</span><br/>
+              <span style="color:#c62828;font-size:11px;">⚡ Fast-sell: DO-178C DAL A/B · FBW systems · Avionics SW · RTCA DO-254 · Part 29</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:11px;background:#fff5f5;border-radius:8px;padding:11px 14px;border-left:4px solid #f57f17;">
+            <div style="background:#f57f17;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">3</div>
+            <div style="font-size:12px;line-height:1.6;">
+              <strong>🟡 Bell Military Tech Pubs & ILS — Fort Worth TX</strong><br/>
+              T-6C SLEP, AT-6 export campaign, and AH-1Z/UH-1Y sustainment are all generating AMM and ILS publication demand. Non-clearance IPC/AMM technical writer roles — Cyient DLM delivers mil-spec pubs for rotorcraft today.<br/>
+              <span style="color:#8b0000;">📌 Target: Robert Collins (Director Defense Programs – Bell) · Bell ILS/Pubs TA</span><br/>
+              <span style="color:#c62828;font-size:11px;">⚡ Fast-sell: AMM/IPC · S1000D · MIL-SPEC tech pubs · IETM authoring</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEXTRON AVIATION -->
+      <div style="border-radius:12px;overflow:hidden;margin-bottom:20px;border:1.5px solid #b2dfdb;">
+        <div style="background:linear-gradient(135deg,#005f5a,#00a6a0);padding:12px 18px;color:#fff;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:20px;">✈️</span>
+          <div>
+            <div style="font-size:14px;font-weight:800;">Textron Aviation</div>
+            <div style="font-size:11px;opacity:.85;">Wichita KS · Indianapolis IN · London UK · Bengaluru IN</div>
+          </div>
+          <span style="margin-left:auto;background:rgba(255,255,255,0.2);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:700;">~280+ open roles</span>
+        </div>
+        <div style="padding:16px 18px;display:flex;flex-direction:column;gap:11px;">
+          <div style="display:flex;gap:11px;background:#f5fffe;border-radius:8px;padding:11px 14px;border-left:4px solid #c62828;">
+            <div style="background:#c62828;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">1</div>
+            <div style="font-size:12px;line-height:1.6;">
+              <strong>🔴 Cessna Denali + Citation Ascend NPI — Avionics & SW Cert — Wichita KS (HOT)</strong><br/>
+              Two aircraft in simultaneous NPI with parallel DO-178C avionics SW certification campaigns. GE Catalyst avionics integration (Denali) and Citation Ascend G3000 cockpit (Ascend) both need IC-level DO-178C engineers. No clearance. Ryan Seitz confirmed active hiring.<br/>
+              <span style="color:#005f5a;">📌 Target: Ryan Seitz (Avionics & Elec Sys Mgr) · Aasiri Fernando (Director Engineering)</span><br/>
+              <span style="color:#c62828;font-size:11px;">⚡ Fast-sell: DO-178C DAL A/B · G3000 Garmin avionics · Embedded SW · Part 23 cert</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:11px;background:#f5fffe;border-radius:8px;padding:11px 14px;border-left:4px solid #c62828;">
+            <div style="background:#c62828;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">2</div>
+            <div style="font-size:12px;line-height:1.6;">
+              <strong>🔴 King Air Fleet AMM & Tech Pubs Modernization — Wichita KS</strong><br/>
+              20,000+ King Airs and 7,000+ Citations in global service generate perpetual AMM/IPC update demand. SAF fleet re-cert SB wave adds urgency. Cyient DLM already delivers King Air AMMs in ATA iSpec 2200 — lowest-barrier, fastest entry point at TxAv.<br/>
+              <span style="color:#005f5a;">📌 Target: Robert Collins (Director Defense Programs) · TxAv Tech Pubs Manager – Wichita</span><br/>
+              <span style="color:#c62828;font-size:11px;">⚡ Fast-sell: ATA iSpec 2200 · S1000D · AMM/IPC authoring · IETM · SAF fleet compliance</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:11px;background:#f5fffe;border-radius:8px;padding:11px 14px;border-left:4px solid #f57f17;">
+            <div style="background:#f57f17;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">3</div>
+            <div style="font-size:12px;line-height:1.6;">
+              <strong>🟡 PLM / Teamcenter Digital Engineering — Wichita KS</strong><br/>
+              TxAv is rolling out Teamcenter enterprise-wide for Citation and King Air digital thread. PLM/model-based definition engineers needed. Jason Peterson owns engineering operations make/buy — Cyient's Teamcenter practice is a direct fit without TxAv headcount overhead.<br/>
+              <span style="color:#005f5a;">📌 Target: Jason Peterson (Director Engineering Operations) · TxAv PLM TA</span><br/>
+              <span style="color:#c62828;font-size:11px;">⚡ Fast-sell: Teamcenter PLM · NX · Digital thread · MBD · PLM admin/configuration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEXTRON SYSTEMS -->
+      <div style="border-radius:12px;overflow:hidden;margin-bottom:20px;border:1.5px solid #c5cae9;">
+        <div style="background:linear-gradient(135deg,#0a1628,#1a3a5c);padding:12px 18px;color:#fff;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:20px;">🛡️</span>
+          <div>
+            <div style="font-size:14px;font-weight:800;">Textron Systems</div>
+            <div style="font-size:11px;opacity:.85;">Hunt Valley MD · Slidell LA · Wilmington MA · Wichita KS</div>
+          </div>
+          <span style="margin-left:auto;background:rgba(255,255,255,0.2);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:700;">~35+ open (non-clearance)</span>
+        </div>
+        <div style="padding:16px 18px;display:flex;flex-direction:column;gap:11px;">
+          <div style="background:#f0f4ff;border-radius:8px;padding:10px 14px;border:1px solid #c5cae9;font-size:11.5px;color:#1a3a5c;margin-bottom:4px;">
+            ⚠️ <strong>Clearance note:</strong> Most Textron Systems roles require clearance. Actions below target the non-clearance pocket — systems engineering (unclassified), technical publications, ILS, and UAV ground station SW.
+          </div>
+          <div style="display:flex;gap:11px;background:#f0f4ff;border-radius:8px;padding:11px 14px;border-left:4px solid #c62828;">
+            <div style="background:#c62828;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">1</div>
+            <div style="font-size:12px;line-height:1.6;">
+              <strong>🔴 SHADOW RQ-7Bv2 Systems & ILS — Hunt Valley MD</strong><br/>
+              SHADOW UAV is in active sustainment with Army and Marine Corps. Systems engineering, ILS, and tech pubs roles are unclassified. Entry via Bell warm intro to Textron Systems leadership — shared parent company. FLRSS (Future Long Range Scout) pre-development adds systems engineer demand.<br/>
+              <span style="color:#1a3a5c;">📌 Target: Textron Systems TA Business Partner — Hunt Valley MD · Approach via Bell contacts</span><br/>
+              <span style="color:#c62828;font-size:11px;">⚡ Fast-sell: Systems Eng. (MBSE/SysML) · ILS · AMM/pubs · UAV ground systems SW</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:11px;background:#f0f4ff;border-radius:8px;padding:11px 14px;border-left:4px solid #f57f17;">
+            <div style="background:#f57f17;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">2</div>
+            <div style="font-size:12px;line-height:1.6;">
+              <strong>🟡 Unmanned Systems SW — Ground Control Station (Hunt Valley MD / Slidell LA)</strong><br/>
+              SHADOW and Aerosonde GCS software teams need C++ and embedded RTOS engineers for unclassified ground station upgrades. Non-clearance SW development roles in Slidell LA and Hunt Valley MD.<br/>
+              <span style="color:#1a3a5c;">📌 Target: Textron Systems SW Engineering Manager — Hunt Valley MD</span><br/>
+              <span style="color:#c62828;font-size:11px;">⚡ Fast-sell: C++/C · RTOS · Embedded SW · GCS/UAS ground systems · Linux</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:11px;background:#f0f4ff;border-radius:8px;padding:11px 14px;border-left:4px solid #2e7d32;">
+            <div style="background:#2e7d32;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">3</div>
+            <div style="font-size:12px;line-height:1.6;">
+              <strong>🟢 Textron India Engineering Center — Hyderabad IN (Lowest Barrier)</strong><br/>
+              Textron Aviation India (TAIC) in Hyderabad supports PLM, digital engineering, and certification documentation for global programs. Cyient's Hyderabad HQ is in the same geography — ideal for a joint delivery proposal with zero travel overhead.<br/>
+              <span style="color:#1a3a5c;">📌 Target: TAIC India TA Lead — Hyderabad · Textron Aviation India Centre GM</span><br/>
+              <span style="color:#c62828;font-size:11px;">⚡ Fast-sell: All Cyient practices · Hyderabad talent pool · Shared timezone with TxAv India</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /sec-actions -->
+
     <div id="sec-contacts" class="section">
       <h2 class="section-title">Key Contacts — Textron</h2>
       <p class="section-sub">Director · Chief Engineer · Eng Manager &bull; Each mapped to active open roles with live job search links</p>
@@ -3783,6 +3932,21 @@ document.addEventListener('DOMContentLoaded', function() {
         stamp.textContent = 'Data: ' + new Date(json.meta.lastRefreshed)
           .toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
       }
+      // Update refresh banner
+      var _short = {month:'short',day:'numeric',year:'numeric'};
+      var rbBadge = document.getElementById('rb-badge');
+      var rbDate  = document.getElementById('rb-date');
+      var rbNext  = document.getElementById('rb-next');
+      if (json.meta && json.meta.lastRefreshed) {
+        if (rbDate)  rbDate.textContent  = new Date(json.meta.lastRefreshed).toLocaleDateString('en-US', _short);
+        if (rbNext && json.meta.nextRefresh)  rbNext.textContent = new Date(json.meta.nextRefresh).toLocaleDateString('en-US', _short);
+        if (rbBadge) { rbBadge.textContent = '🟢 LIVE DATA'; rbBadge.classList.remove('cached'); }
+      }
+      // Also update last-updated header badge
+      var lu = document.getElementById('last-updated');
+      if (lu && json.meta && json.meta.lastRefreshed) {
+        lu.textContent = new Date(json.meta.lastRefreshed).toLocaleDateString('en-US', _short);
+      }
       console.log('[BEAKON] Live data loaded —', json.meta && json.meta.lastRefreshed);
     })
     .catch(function(err) {
@@ -3791,6 +3955,11 @@ document.addEventListener('DOMContentLoaded', function() {
       renderIndiaPanel(FALLBACK_DATA.india, null);
       var badgeEl = document.getElementById('india-data-badge');
       if (badgeEl) { badgeEl.textContent = '🔴 OFFLINE'; badgeEl.style.background='#fee2e2'; badgeEl.style.color='#991b1b'; }
+      // Show cached state in refresh banner
+      var rbBadge2 = document.getElementById('rb-badge');
+      var rbDate2  = document.getElementById('rb-date');
+      if (rbBadge2) { rbBadge2.textContent = '🟡 CACHED'; rbBadge2.classList.add('cached'); }
+      if (rbDate2)  rbDate2.textContent = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) + ' (fallback)';
     });
 });
 </script>
