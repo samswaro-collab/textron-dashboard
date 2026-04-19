@@ -220,6 +220,14 @@ tr:last-child td{border:none;}
 
 /* Footer */
 #footer{background:#fff;border-top:1px solid #e8eaed;padding:10px 28px;font-size:11px;color:#aaa;text-align:right;}
+
+/* ── Change Highlighting System ── */
+[data-since].is-new{outline:2px solid #f59e0b;outline-offset:2px;border-radius:10px;position:relative;}
+[data-since].is-new::after{content:'NEW';position:absolute;top:-9px;right:12px;background:#f59e0b;color:#1c1400;font-size:9px;font-weight:800;padding:2px 7px;border-radius:3px;letter-spacing:0.6px;z-index:10;pointer-events:none;}
+.whats-new-bar{display:none;background:linear-gradient(90deg,#92400e 0%,#b45309 100%);color:white;padding:9px 20px;font-size:13px;font-weight:600;align-items:center;gap:10px;border-bottom:2px solid #d97706;}
+.whats-new-bar.visible{display:flex;}
+.whats-new-dismiss{margin-left:auto;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);color:white;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:600;white-space:nowrap;}
+.whats-new-dismiss:hover{background:rgba(255,255,255,0.28);}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
@@ -343,6 +351,14 @@ tr:last-child td{border:none;}
 
 <!-- MAIN -->
 <div id="main">
+
+  <!-- What's New bar -->
+  <div id="whats-new-bar" class="whats-new-bar">
+    <span>&#10024;</span>
+    <span id="whats-new-msg">Updates since your last visit</span>
+    <button class="whats-new-dismiss" onclick="dismissNew()">Got it &#10003;</button>
+  </div>
+
   <div id="header">
     <div class="header-title-block">
       <h1>Textron — Sales Intelligence</h1>
@@ -352,7 +368,7 @@ tr:last-child td{border:none;}
       <div class="timestamp-badge" style="text-align:center;">
         <div style="font-size:10px;opacity:0.75;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:2px;">Last Refreshed</div>
         <strong id="last-updated" style="font-size:13px;">April 18, 2026</strong>
-        <div style="font-size:9px;opacity:0.6;margin-top:2px;letter-spacing:0.3px;">Auto-refreshes 1st &amp; 15th</div>
+        <div style="font-size:9px;opacity:0.6;margin-top:2px;letter-spacing:0.3px;">Auto-refreshes every 5 days</div>
       </div>
     </div>
     <div class="header-logos">
@@ -421,6 +437,37 @@ tr:last-child td{border:none;}
           <span class="tag tag-teal">Quality</span>
         </div>
       </div>
+
+      <!-- Market Signals — auto-refreshed by BEAKON Intelligence Agent -->
+      <h2 class="section-title" style="margin-top:32px;margin-bottom:6px;font-size:18px;">&#128225; Market Signals &amp; Strategic Intelligence</h2>
+      <p style="font-size:12px;color:#888;margin-bottom:16px;">Live program signals and hiring inflections across Bell, Textron Aviation &amp; Textron Systems. <em>Auto-refreshed every 5 days by BEAKON Intelligence Agent.</em></p>
+      <!-- BEAKON_SIGNALS_START:textron -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;">
+
+        <div style="background:#fff;border-radius:10px;padding:16px 18px;border-top:3px solid #007a75;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;color:#007a75;margin-bottom:4px;">&#128293; HIGH URGENCY</div>
+          <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:6px;">FLRAA MV-75 LRIP Engineering Ramp</div>
+          <div style="font-size:12px;color:#475569;line-height:1.6;">Bell's V-280 Valor has entered LRIP preparation — producibility, DFM, and manufacturing engineering roles are Bell's fastest-growing category in Fort Worth. Composite rotor and wing structure packages are the primary augmentation opportunity.</div>
+          <div style="margin-top:8px;font-size:11px;background:#e0f5f4;color:#007a75;padding:4px 8px;border-radius:4px;display:inline-block;font-weight:600;">Cyient Trigger: Composites DFM, producibility engineering, CATIA V5</div>
+        </div>
+
+        <div style="background:#fff;border-radius:10px;padding:16px 18px;border-top:3px solid #c8192a;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;color:#c8192a;margin-bottom:4px;">&#9992; CERTIFICATION SURGE</div>
+          <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:6px;">Cessna Denali (GE Catalyst) Part 23 Cert</div>
+          <div style="font-size:12px;color:#475569;line-height:1.6;">Textron Aviation's turboprop flagship is in active FAA Part 23 certification in Wichita. Avionics SW (DO-178C) and systems integration are the bottleneck disciplines — 20+ open roles confirmed on careers.textron.com.</div>
+          <div style="margin-top:8px;font-size:11px;background:#fde8e8;color:#9b1c1c;padding:4px 8px;border-radius:4px;display:inline-block;font-weight:600;">Cyient Trigger: DO-178C V&amp;V, avionics cert, systems engineering</div>
+        </div>
+
+        <div style="background:#fff;border-radius:10px;padding:16px 18px;border-top:3px solid #0a2240;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;color:#0a2240;margin-bottom:4px;">&#128737; DEFENSE PROGRAM</div>
+          <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:6px;">Textron Systems ATAV &amp; Aerosonde UAS</div>
+          <div style="font-size:12px;color:#475569;line-height:1.6;">Textron Systems' unmanned portfolio (Aerosonde SUAS, ATAV) is seeing increased DoD and allied interest post-Ukraine. Hunt Valley MD is hiring for software and systems roles supporting autonomous systems engineering.</div>
+          <div style="margin-top:8px;font-size:11px;background:#e8edf5;color:#0a2240;padding:4px 8px;border-radius:4px;display:inline-block;font-weight:600;">Cyient Trigger: Embedded SW, systems engineering, autonomy</div>
+        </div>
+
+      </div>
+      <!-- BEAKON_SIGNALS_END:textron -->
+
     </div>
 
     <!-- BELL OVERVIEW -->
@@ -2100,6 +2147,44 @@ tr:last-child td{border:none;}
 
 <script>
 
+// ── Change Highlighting System ──
+(function() {
+  var STORE_KEY = 'beakon_textron_last_visit';
+  var today     = new Date().toISOString().slice(0, 10);
+  var lastVisit = localStorage.getItem(STORE_KEY) || '1970-01-01';
+
+  var tagged = document.querySelectorAll('[data-since]');
+  var newCount = 0;
+  tagged.forEach(function(el) {
+    var since = el.getAttribute('data-since');
+    if (since && since > lastVisit) {
+      el.classList.add('is-new');
+      newCount++;
+    }
+  });
+
+  if (newCount > 0) {
+    var bar = document.getElementById('whats-new-bar');
+    var msg = document.getElementById('whats-new-msg');
+    if (bar && msg) {
+      var lv = lastVisit === '1970-01-01' ? 'your first visit' : (function() {
+        var d = new Date(lastVisit + 'T12:00:00');
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      })();
+      msg.textContent = newCount + ' update' + (newCount !== 1 ? 's' : '') + ' since ' + lv;
+      bar.classList.add('visible');
+    }
+  }
+
+  setTimeout(function() { localStorage.setItem(STORE_KEY, today); }, 8000);
+})();
+
+function dismissNew() {
+  var bar = document.getElementById('whats-new-bar');
+  if (bar) bar.classList.remove('visible');
+  document.querySelectorAll('.is-new').forEach(function(el) { el.classList.remove('is-new'); });
+  localStorage.setItem('beakon_textron_last_visit', new Date().toISOString().slice(0, 10));
+}
 
 function switchSection(id,el){
   document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
