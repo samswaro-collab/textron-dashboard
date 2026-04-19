@@ -1943,7 +1943,7 @@ tr:last-child td{border:none;}
         </div>
       </div>
 
-      <!-- Textron India Hiring Row -->
+      <!-- Textron India Hiring Row — all data from data.json (live) -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px;">
         <div class="panel" style="margin-bottom:0;border-left:4px solid #f59e0b;">
           <h3 style="display:flex;align-items:center;gap:8px;">
@@ -1952,28 +1952,33 @@ tr:last-child td{border:none;}
           </h3>
           <div style="position:relative;height:160px;"><canvas id="chartIndia"></canvas></div>
         </div>
-        <div class="panel" style="margin-bottom:0;background:#fffbeb;border:1px solid #fde68a;">
-          <h3 style="color:#92400e;">🇮🇳 India Delivery Centre — Key Facts</h3>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
+        <div class="panel" style="margin-bottom:0;background:#fffbeb;border:1px solid #fde68a;" id="india-facts-panel">
+          <h3 style="color:#92400e;display:flex;align-items:center;justify-content:space-between;">
+            🇮🇳 India — Live Hiring Intelligence
+            <span id="india-data-badge" style="font-size:9px;font-weight:700;background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:10px;letter-spacing:.5px;">LIVE DATA</span>
+          </h3>
+          <!-- Stat tiles — populated by fetchDashboardData() from data.json -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;" id="india-stat-tiles">
             <div style="background:#fff;border-radius:8px;padding:10px 12px;text-align:center;border:1px solid #fde68a;">
-              <div style="font-size:22px;font-weight:800;color:#f59e0b;">~25+</div>
-              <div style="font-size:10px;color:#78716c;font-weight:600;text-transform:uppercase;letter-spacing:.5px;">Est. Open Roles</div>
+              <div style="font-size:22px;font-weight:800;color:#f59e0b;" id="india-total">—</div>
+              <div style="font-size:10px;color:#78716c;font-weight:600;text-transform:uppercase;letter-spacing:.5px;">Est. Open Roles in India</div>
             </div>
             <div style="background:#fff;border-radius:8px;padding:10px 12px;text-align:center;border:1px solid #fde68a;">
-              <div style="font-size:22px;font-weight:800;color:#f59e0b;">12</div>
-              <div style="font-size:10px;color:#78716c;font-weight:600;text-transform:uppercase;letter-spacing:.5px;">Cyient FTEs Today</div>
+              <div style="font-size:22px;font-weight:800;color:#f59e0b;" id="india-blr">—</div>
+              <div style="font-size:10px;color:#78716c;font-weight:600;text-transform:uppercase;letter-spacing:.5px;">Bangalore Roles</div>
             </div>
             <div style="background:#fff;border-radius:8px;padding:10px 12px;text-align:center;border:1px solid #fde68a;">
-              <div style="font-size:22px;font-weight:800;color:#059669;">50+</div>
-              <div style="font-size:10px;color:#78716c;font-weight:600;text-transform:uppercase;letter-spacing:.5px;">Growth Target (18mo)</div>
+              <div style="font-size:22px;font-weight:800;color:#f59e0b;" id="india-hyd">—</div>
+              <div style="font-size:10px;color:#78716c;font-weight:600;text-transform:uppercase;letter-spacing:.5px;">Hyderabad Roles</div>
             </div>
             <div style="background:#fff;border-radius:8px;padding:10px 12px;text-align:center;border:1px solid #fde68a;">
-              <div style="font-size:22px;font-weight:800;color:#3b82f6;">2</div>
-              <div style="font-size:10px;color:#78716c;font-weight:600;text-transform:uppercase;letter-spacing:.5px;">India Hubs (BLR · HYD)</div>
+              <div style="font-size:13px;font-weight:800;color:#059669;" id="india-source">Refreshing…</div>
+              <div style="font-size:10px;color:#78716c;font-weight:600;text-transform:uppercase;letter-spacing:.5px;">Data Source</div>
             </div>
           </div>
-          <div style="margin-top:10px;font-size:11px;color:#78716c;line-height:1.5;">
-            <strong style="color:#92400e;">Top functions hiring in India:</strong> Tech Pubs · CAD/Design · Stress FEA · PLM Digital · Sustaining Eng · SW Test
+          <div style="margin-top:10px;font-size:11px;color:#78716c;line-height:1.5;" id="india-refresh-stamp">
+            <span style="color:#92400e;font-weight:700;">⟳ Last refreshed:</span> <span id="india-refresh-date">loading…</span>
+            · <span style="color:#92400e;font-weight:700;">Next:</span> <span id="india-next-refresh">—</span>
           </div>
         </div>
       </div>
@@ -3582,101 +3587,161 @@ function filterHiring(skill){
   if(fd) fd.textContent=document.getElementById('last-updated').textContent;
 })();
 
-// Charts - initialize after Chart.js loads
+// ══════════════════════════════════════════════════════════════════
+// LIVE DATA — fetched from data.json (auto-refreshed every 5 days
+// by GitHub Actions / run_refresh.ps1).
+// Falls back to last-known values if fetch fails.
+// ══════════════════════════════════════════════════════════════════
+
+var DATA_JSON_URL = 'https://raw.githubusercontent.com/samswaro-collab/textron-dashboard/main/data.json';
+
+// Fallback values (used only if live fetch fails)
+var FALLBACK_DATA = {
+  bell:    { total:210, locations:[{city:'Fort Worth, TX',count:50},{city:'Mirabel, QC',count:15},{city:'Amarillo, TX',count:10},{city:'Remote / Other',count:5}] },
+  txtav:   { total:280, locations:[{city:'Wichita, KS',count:80},{city:'Remote / Other',count:10},{city:'Augusta, KS',count:5},{city:'Abilene, TX',count:5}] },
+  txsys:   { total:35,  locations:[{city:'Hunt Valley, MD',count:10},{city:'Wilmington, MA',count:8},{city:'New Orleans, LA',count:5},{city:'Dayton, OH',count:4}] },
+  india:   { total:25,  locations:[{city:'Bangalore, KA',count:15},{city:'Hyderabad, TS',count:8},{city:'Remote / Other',count:2}] }
+};
+
+var tealColor  = '#00a6a0';
+var redColor   = '#c8192a';
+var navyColor  = '#0a2240';
+var amberColor = '#f59e0b';
+var chartInstances = {};
+
+function makeBar(id, labels, data, colors, xLabel) {
+  var ctx = document.getElementById(id);
+  if (!ctx) return;
+  if (chartInstances[id]) { chartInstances[id].destroy(); }
+  chartInstances[id] = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{ data: data, backgroundColor: colors, borderRadius: 5, borderSkipped: false }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: function(c){ return ' ' + c.parsed.x + '+ open roles'; } } }
+      },
+      indexAxis: 'y',
+      scales: {
+        x: { beginAtZero:true, grid:{color:'#f0f2f5'}, ticks:{font:{size:11}},
+             title:{display:true, text: xLabel||'Est. Open Roles', font:{size:11}} },
+        y: { ticks:{font:{size:11}}, grid:{display:false} }
+      }
+    }
+  });
+}
+
+function makeDoughnut(id, labels, data, colors) {
+  var ctx = document.getElementById(id);
+  if (!ctx) return;
+  if (chartInstances[id]) { chartInstances[id].destroy(); }
+  chartInstances[id] = new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels: labels, datasets: [{ data: data, backgroundColor: colors, borderWidth:2, borderColor:'#fff' }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position:'bottom', labels:{ font:{size:10}, padding:10 } },
+        tooltip: { callbacks: { label: function(c){ return ' '+c.label+': ~'+c.parsed+'+ roles'; } } }
+      }
+    }
+  });
+}
+
+function locLabels(locs) { return locs.map(function(l){ return l.city; }); }
+function locCounts(locs) { return locs.map(function(l){ return l.count; }); }
+
+function renderCharts(d) {
+  var bell  = d.bell  || FALLBACK_DATA.bell;
+  var txav  = d.textronAv   || FALLBACK_DATA.txtav;
+  var txsys = d.textronSystems || FALLBACK_DATA.txsys;
+  var india = d.india || FALLBACK_DATA.india;
+
+  makeBar('chartBell',  locLabels(bell.locations),  locCounts(bell.locations),
+    [redColor,'#e88','#e88','#e88','#ccc'], 'Est. Open Roles');
+
+  makeBar('chartTxAv',  locLabels(txav.locations),  locCounts(txav.locations),
+    [tealColor,'#5dd','#5dd','#5dd','#ccc'], 'Est. Open Roles');
+
+  makeBar('chartTSys',  locLabels(txsys.locations), locCounts(txsys.locations),
+    [navyColor,'#567','#567','#567','#ccc'], 'Est. Open Roles');
+
+  makeBar('chartIndia', locLabels(india.locations), locCounts(india.locations),
+    [amberColor,'#fbbf24','#fde68a','#ccc'], 'Est. Open Roles');
+
+  makeDoughnut('chartTextron',
+    ['Bell Flight', 'Textron Aviation', 'Textron Systems', 'Textron India'],
+    [bell.total, txav.total, txsys.total, india.total],
+    [redColor, tealColor, navyColor, amberColor]
+  );
+}
+
+function renderIndiaPanel(india, meta) {
+  var locs = india.locations || [];
+  var blr  = (locs.find(function(l){ return /bangalore/i.test(l.city); }) || {}).count || '—';
+  var hyd  = (locs.find(function(l){ return /hyderabad/i.test(l.city); }) || {}).count || '—';
+
+  var totalEl = document.getElementById('india-total');
+  var blrEl   = document.getElementById('india-blr');
+  var hydEl   = document.getElementById('india-hyd');
+  var srcEl   = document.getElementById('india-source');
+  var refEl   = document.getElementById('india-refresh-date');
+  var nxtEl   = document.getElementById('india-next-refresh');
+  var badgeEl = document.getElementById('india-data-badge');
+
+  if (totalEl) totalEl.textContent = (india.total || '—') + '+';
+  if (blrEl)   blrEl.textContent   = blr + (blr !== '—' ? '+' : '');
+  if (hydEl)   hydEl.textContent   = hyd + (hyd !== '—' ? '+' : '');
+  if (srcEl)   srcEl.textContent   = india.source === 'live-portal' ? 'Company Portal'
+                                   : india.source === 'live-indeed' ? 'Indeed'
+                                   : india.source === 'live' ? 'LinkedIn / Indeed'
+                                   : 'Cached Data';
+
+  if (meta) {
+    var refreshed = meta.lastRefreshed ? new Date(meta.lastRefreshed).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '—';
+    var next      = meta.nextRefresh   ? new Date(meta.nextRefresh).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '—';
+    if (refEl) refEl.textContent = refreshed;
+    if (nxtEl) nxtEl.textContent = next;
+  }
+
+  if (badgeEl) {
+    var isLive = india.source && india.source.startsWith('live');
+    badgeEl.textContent = isLive ? '🟢 LIVE DATA' : '🟡 CACHED';
+    badgeEl.style.background = isLive ? '#d1fae5' : '#fef3c7';
+    badgeEl.style.color = isLive ? '#065f46' : '#92400e';
+  }
+}
+
+// ── Main: fetch data.json then render everything ──────────────
 document.addEventListener('DOMContentLoaded', function() {
-  var tealColor = '#00a6a0';
-  var redColor  = '#c8192a';
-  var navyColor = '#0a2240';
-  var amberColor= '#e67e22';
-
-  function makeBar(id, labels, data, colors, xLabel) {
-    var ctx = document.getElementById(id);
-    if (!ctx) return;
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [{
-          data: data,
-          backgroundColor: colors,
-          borderRadius: 5,
-          borderSkipped: false
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: { callbacks: { label: function(c){ return ' ' + c.parsed.x + '+ open roles'; } } }
-        },
-        indexAxis: 'y',
-        scales: {
-          x: {
-            beginAtZero: true,
-            grid: { color: '#f0f2f5' },
-            ticks: { font: { size: 11 } },
-            title: { display: true, text: xLabel || 'Est. Open Roles', font: { size: 11 } }
-          },
-          y: { ticks: { font: { size: 11 } }, grid: { display: false } }
-        }
+  fetch(DATA_JSON_URL + '?t=' + Date.now())   // bust cache
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(json) {
+      var tx = json.textron || {};
+      renderCharts(tx);
+      renderIndiaPanel(tx.india || FALLBACK_DATA.india, json.meta);
+      // Update section header refresh date if element exists
+      var stamp = document.getElementById('data-refresh-stamp');
+      if (stamp && json.meta && json.meta.lastRefreshed) {
+        stamp.textContent = 'Data: ' + new Date(json.meta.lastRefreshed)
+          .toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
       }
+      console.log('[BEAKON] Live data loaded —', json.meta && json.meta.lastRefreshed);
+    })
+    .catch(function(err) {
+      console.warn('[BEAKON] data.json fetch failed, using fallback:', err);
+      renderCharts(FALLBACK_DATA);
+      renderIndiaPanel(FALLBACK_DATA.india, null);
+      var badgeEl = document.getElementById('india-data-badge');
+      if (badgeEl) { badgeEl.textContent = '🔴 OFFLINE'; badgeEl.style.background='#fee2e2'; badgeEl.style.color='#991b1b'; }
     });
-  }
-
-  makeBar('chartBell',
-    ['Fort Worth, TX', 'Mirabel, QC', 'Amarillo, TX', 'Remote / Other'],
-    [50, 15, 10, 5],
-    [redColor, '#e88', '#e88', '#ccc'],
-    'Est. Open Roles'
-  );
-
-  makeBar('chartTxAv',
-    ['Wichita, KS', 'Remote / Other', 'Augusta, KS', 'Abilene, TX'],
-    [80, 10, 5, 5],
-    [tealColor, '#5dd', '#5dd', '#ccc'],
-    'Est. Open Roles'
-  );
-
-  makeBar('chartTSys',
-    ['Hunt Valley, MD', 'Wilmington, MA', 'New Orleans, LA', 'Dayton, OH'],
-    [10, 8, 5, 5],
-    [navyColor, '#567', '#567', '#ccc'],
-    'Est. Open Roles'
-  );
-
-  // Pie / doughnut for overall Textron — now includes India
-  var ctxT = document.getElementById('chartTextron');
-  if (ctxT) {
-    new Chart(ctxT, {
-      type: 'doughnut',
-      data: {
-        labels: ['Bell Flight', 'Textron Aviation', 'Textron Systems', 'Textron India'],
-        datasets: [{
-          data: [80, 100, 28, 25],
-          backgroundColor: [redColor, tealColor, navyColor, '#f59e0b'],
-          borderWidth: 2,
-          borderColor: '#fff'
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 10 } },
-          tooltip: { callbacks: { label: function(c){ return ' ' + c.label + ': ~' + c.parsed + '+ roles'; } } }
-        }
-      }
-    });
-  }
-
-  // Textron India — Hiring Locations bar chart
-  makeBar('chartIndia',
-    ['Bangalore, KA', 'Hyderabad, TS', 'Remote / Other'],
-    [15, 8, 2],
-    ['#f59e0b', '#fbbf24', '#ccc'],
-    'Est. Open Roles'
-  );
 });
 </script>
 </body>
