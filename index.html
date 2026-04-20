@@ -2244,7 +2244,7 @@ tr:last-child td{border:none;}
             </div>
           </div>
           
-  <div style="padding:8px 15px 4px 15px;"><div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#999;margin-bottom:4px;letter-spacing:0.5px;">Financial</div><div style="padding:7px 0px;cursor:pointer;font-size:13px;color:rgba(255,255,255,0.85);" onclick="switchSection ? switchSection(event,'financial') : (document.querySelectorAll('.section').forEach(s=>s.classList.remove('active')), document.getElementById('financial')?.classList.add('active'))">💹 Financial Health</div></div>
+  <div style="padding:8px 15px 4px 15px;"><div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#999;margin-bottom:4px;letter-spacing:0.5px;">Financial</div><div style="padding:7px 0px;cursor:pointer;font-size:13px;color:rgba(255,255,255,0.85);" onclick="switchSection('priorities', this)" style='margin-top:4px;'><span class='icon'>🎯</span> Account Priorities</div><div class="nav-item" onclick="switchSection('financial', this)">💹 Financial Health</div></div>
   <div style="margin-top:10px;font-size:11px;color:#78716c;line-height:1.5;" id="india-refresh-stamp">
             <span style="color:#92400e;font-weight:700;">⟳ Last refreshed:</span> <span id="india-refresh-date">loading…</span>
             · <span style="color:#92400e;font-weight:700;">Next:</span> <span id="india-next-refresh">—</span>
@@ -4110,39 +4110,285 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!-- ═══ FINANCIAL HEALTH ═══ -->
-<div id="financial" class="section">
+
+<div id="priorities" class="section">
+  <div class="section-title" style="font-size:16px;font-weight:700;margin-bottom:4px;">🎯 Account Priorities — Textron — Bell · Aviation · Systems</div>
+  <div style="font-size:12px;color:#888;margin-bottom:18px;">Renewals at risk · Live signal opportunities · Strategic plays — refreshed with each data cycle</div>
+
+  <!-- Tab bar -->
+  <div style="display:flex;gap:0;margin-bottom:20px;border-bottom:2px solid #e5e7eb;">
+    <button onclick="showPriTab(this,'pri-renewals')" id="pri-tab-renewals"
+      style="padding:10px 20px;border:none;background:none;cursor:pointer;font-size:12px;font-weight:700;color:#0078d4;border-bottom:3px solid #0078d4;margin-bottom:-2px;">
+      🔄 Renewals <span style="background:#0078d4;color:#fff;border-radius:10px;padding:1px 7px;font-size:10px;margin-left:4px;">1</span>
+    </button>
+    <button onclick="showPriTab(this,'pri-signal')" id="pri-tab-signal"
+      style="padding:10px 20px;border:none;background:none;cursor:pointer;font-size:12px;font-weight:600;color:#666;border-bottom:3px solid transparent;margin-bottom:-2px;">
+      📡 Signal-Based Opps <span style="background:#ef4444;color:#fff;border-radius:10px;padding:1px 7px;font-size:10px;margin-left:4px;">2</span>
+    </button>
+    <button onclick="showPriTab(this,'pri-strategic')" id="pri-tab-strategic"
+      style="padding:10px 20px;border:none;background:none;cursor:pointer;font-size:12px;font-weight:600;color:#666;border-bottom:3px solid transparent;margin-bottom:-2px;">
+      🏆 Strategic <span style="background:#f59e0b;color:#fff;border-radius:10px;padding:1px 7px;font-size:10px;margin-left:4px;">1</span>
+    </button>
+  </div>
+
+  <!-- Tab panels -->
+  <div id="pri-renewals">
+        <div style="background:white;border-radius:8px;padding:16px;border:1.5px solid #e8e8e8;border-left:4px solid #7c3aed;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+            <div style="font-size:13px;font-weight:700;color:#1a1a2e;">Bell FLRAA V-280 Valor Engineering Support</div>
+            <span style="background:#7c3aed;color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;white-space:nowrap;">RENEWAL</span>
+          </div>
+          <div style="font-size:11px;color:#666;margin-bottom:8px;background:#f5f3ff;padding:6px 10px;border-radius:4px;">
+            🏢 <strong>Incumbent:</strong> L3Harris / SAIC &nbsp;·&nbsp; ⏱ <strong>Timeline:</strong> Mar 2027
+          </div>
+          <div style="font-size:11.5px;color:#444;line-height:1.6;margin-bottom:8px;">L3Harris and SAIC hold engineering services contracts for V-280 Valor FLRAA programme (Fort Worth TX). Army contract award $1.3B. Engineering support rebid tied to EMD phase milestone.</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+            <div style="font-size:11px;background:#e8f0fe;padding:4px 10px;border-radius:4px;color:#1a1a2e;"><strong>💰 TCV:</strong> USD 8–15M</div>
+          </div>
+          <div style="margin-top:8px;background:#f0fdf4;border-left:3px solid #22c55e;padding:7px 10px;border-radius:0 4px 4px 0;font-size:11px;color:#166534;font-weight:600;">🎯 Unclassified FBW / avionics DO-178C verification, structural stress analysis for V-280 EMD — Fort Worth delivery</div>
+        </div></div>
+  <div id="pri-signal" style="display:none;">
+  <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:9px 13px;margin-bottom:14px;display:flex;align-items:flex-start;gap:9px;font-size:11px;color:#92400e;">
+    <span style="font-size:15px;flex-shrink:0;">⚠️</span>
+    <span><strong>Estimated signals — verify before pitch.</strong> Hiring counts and intent data are based on research up to May 2025. Confirm live job postings on LinkedIn and validate incumbent vendor details before any customer conversation.</span>
+  </div>
+  
+        <div style="background:white;border-radius:8px;padding:16px;border:1.5px solid #e8e8e8;border-left:4px solid #0078d4;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+            <div style="font-size:13px;font-weight:700;color:#1a1a2e;">Cessna Denali / Citation Ascend Certification Sprint <span style="background:#ef4444;color:#fff;padding:1px 6px;border-radius:6px;font-size:9px;font-weight:700;vertical-align:middle;margin-left:4px;">NEW</span></div>
+            <span style="background:#0078d4;color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;white-space:nowrap;">SIGNAL OPP</span>
+          </div>
+          <div style="font-size:11px;margin-bottom:8px;"><span style="background:#dbeafe;color:#1e40af;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;margin-right:4px;">LinkedIn hiring signal: Ryan Seitz</span><span style="background:#dbeafe;color:#1e40af;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;margin-right:4px;">Hiring: 20+ DO-178C avionics roles (Wichita)</span></div>
+          <div style="font-size:11.5px;color:#444;line-height:1.6;margin-bottom:6px;">Ryan Seitz (Avionics & Electrical Sys Manager, Wichita KS) actively posted avionics hiring on LinkedIn. 20+ DO-178C avionics SW roles open for Denali Part 23 certification and Citation Ascend G3000 STC.</div>
+          <div style="margin-top:6px;"><div style="font-size:10.5px;color:#0a66c2;margin-top:2px;">👤 Ryan Seitz — Avionics & Electrical Systems Manager (Wichita KS)</div><div style="font-size:10.5px;color:#0a66c2;margin-top:2px;">👤 Aasiri Fernando — Director Engineering (Wichita KS)</div></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+            <div style="font-size:11px;background:#e8f0fe;padding:4px 10px;border-radius:4px;color:#1a1a2e;"><strong>💰 Est. TCV:</strong> USD 5–10M</div>
+          </div>
+          <div style="margin-top:8px;background:#f0fdf4;border-left:3px solid #22c55e;padding:7px 10px;border-radius:0 4px 4px 0;font-size:11px;color:#166534;font-weight:600;">🎯 DO-178C Level A/B avionics SW verification for Denali and Ascend — Cyient DLM has FAA-authorized DERs</div>
+        </div>
+        <div style="background:white;border-radius:8px;padding:16px;border:1.5px solid #e8e8e8;border-left:4px solid #0078d4;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+            <div style="font-size:13px;font-weight:700;color:#1a1a2e;">Bell 525 Commercial Rotorcraft FAR Part 29 Certification <span style="background:#ef4444;color:#fff;padding:1px 6px;border-radius:6px;font-size:9px;font-weight:700;vertical-align:middle;margin-left:4px;">NEW</span></div>
+            <span style="background:#0078d4;color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;white-space:nowrap;">SIGNAL OPP</span>
+          </div>
+          <div style="font-size:11px;margin-bottom:8px;"><span style="background:#dbeafe;color:#1e40af;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;margin-right:4px;">Hiring: Bell 525 avionics certification roles</span><span style="background:#dbeafe;color:#1e40af;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;margin-right:4px;">FAR Part 29 cert timeline signal</span></div>
+          <div style="font-size:11.5px;color:#444;line-height:1.6;margin-bottom:6px;">Bell 525 Relentless FAR Part 29 certification ongoing — FMS and FBW system certification requires DO-178C avionics documentation and verification. 5+ non-cleared roles in Fort Worth.</div>
+          <div style="margin-top:6px;"><div style="font-size:10.5px;color:#0a66c2;margin-top:2px;">👤 Paul Wilson — Chief Engineer V-280 (Fort Worth TX)</div></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+            <div style="font-size:11px;background:#e8f0fe;padding:4px 10px;border-radius:4px;color:#1a1a2e;"><strong>💰 Est. TCV:</strong> USD 3–7M</div>
+          </div>
+          <div style="margin-top:8px;background:#f0fdf4;border-left:3px solid #22c55e;padding:7px 10px;border-radius:0 4px 4px 0;font-size:11px;color:#166534;font-weight:600;">🎯 Bell 525 FBW / FMS DO-178C verification, commercial Part 29 only — no clearance required</div>
+        </div></div>
+  <div id="pri-strategic" style="display:none;">
+        <div style="background:white;border-radius:8px;padding:16px;border:1.5px solid #e8e8e8;border-left:4px solid #f59e0b;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+            <div style="font-size:13px;font-weight:700;color:#1a1a2e;">Textron Aviation India — No India Engineering Presence</div>
+            <span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;white-space:nowrap;">STRATEGIC</span>
+          </div>
+          <div style="font-size:11.5px;color:#444;line-height:1.6;margin-bottom:8px;">Textron Aviation (Wichita) has no India engineering office. Cessna Denali, Citation Ascend, and King Air structural/systems engineering are candidates for India offshore delivery.</div>
+          <div style="display:flex;gap:12px;margin-bottom:8px;">
+            <div style="font-size:11px;background:#fef3c7;padding:4px 10px;border-radius:4px;color:#92400e;"><strong>💰 TCV:</strong> USD 20–40M</div>
+            <div style="font-size:11px;background:#fef3c7;padding:4px 10px;border-radius:4px;color:#92400e;"><strong>⏱ Horizon:</strong> 18–36 months</div>
+          </div>
+          <div style="margin-top:8px;background:#f0fdf4;border-left:3px solid #22c55e;padding:7px 10px;border-radius:0 4px 4px 0;font-size:11px;color:#166534;font-weight:600;">🎯 Pilot: Denali composite structure FEA from Hyderabad → expand to Citation family → Bell military (unclassified)</div>
+        </div></div>
+</div>
+
+<script>
+function showPriTab(btn, panelId) {
+  document.querySelectorAll('[id^="pri-"]').forEach(function(el) {
+    if(el.id.startsWith('pri-tab')) {
+      el.style.color = '#666';
+      el.style.fontWeight = '600';
+      el.style.borderBottom = '3px solid transparent';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+  document.getElementById(panelId).style.display = 'block';
+  btn.style.color = '#0078d4';
+  btn.style.fontWeight = '700';
+  btn.style.borderBottom = '3px solid #0078d4';
+}
+</script>
+
+<div id="sec-financial" class="section">
   <div class="section-title" style="font-size:16px;font-weight:700;margin-bottom:16px;">💹 Financial Health — Textron Aviation</div>
   <div style="background:linear-gradient(135deg,#0a2342,#1a237e);color:white;border-radius:10px;padding:15px 20px;margin-bottom:22px;">
     <div style="font-size:13px;font-weight:700;margin-bottom:6px;">📊 8-Quarter Analysis — TXT (NYSE)</div>
     <div style="font-size:11.5px;opacity:.93;line-height:1.7;">Textron Aviation completed a 28-day machinists' strike in Q3 2024, securing a 31% wage increase that compressed margins significantly. The post-strike production ramp (targeting +36% YoY in Q4 2024) is creating massive engineering bandwidth pressure. This is the most immediate Cyient opportunity: production ramp engineering support at Wichita.</div>
   </div>
 
-  <div style="background:white;border-radius:10px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:16px;">
-    <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:#0a2342;">📈 Revenue, Margin &amp; R&amp;D Trend (Last 8 Quarters)</div>
-    <div style="overflow-x:auto;">
-      <table style="width:100%;border-collapse:collapse;font-size:11.5px;">
-        <thead>
-          <tr style="background:#0a2342;color:white;">
-            <th style="padding:8px 12px;text-align:left;">Quarter</th>
-            <th style="padding:8px 12px;text-align:right;">Revenue</th>
-            <th style="padding:8px 12px;text-align:right;">Op. Margin</th>
-            <th style="padding:8px 12px;text-align:right;">R&amp;D Spend</th>
-            <th style="padding:8px 12px;text-align:left;">Key Signal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="background:white;"><td style="padding:7px 12px;border-bottom:1px solid #eee;">Q1 2024</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$1.42B</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">12.3%</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$48M</td><td style="padding:7px 12px;border-bottom:1px solid #eee;">Strong backlog; Cessna Citation Longitude production steady; King Air fleet strong</td></tr>
-          <tr style="background:#f9fafb;"><td style="padding:7px 12px;border-bottom:1px solid #eee;">Q2 2024</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$1.51B</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">12.8%</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$51M</td><td style="padding:7px 12px;border-bottom:1px solid #eee;">Pre-strike; labor contract negotiations begin; order book solid</td></tr>
-          <tr style="background:white;"><td style="padding:7px 12px;border-bottom:1px solid #eee;">Q3 2024</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$1.19B</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">4.2%</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$38M</td><td style="padding:7px 12px;border-bottom:1px solid #eee;">28-day IAM machinists' strike (Aug 2024); $30M+ revenue impact; 737-like disruption</td></tr>
-          <tr style="background:#f9fafb;"><td style="padding:7px 12px;border-bottom:1px solid #eee;">Q4 2024</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$1.63B</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">11.1%</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$52M</td><td style="padding:7px 12px;border-bottom:1px solid #eee;">Post-strike ramp: +36% production YoY; strong pent-up demand; labor cost headwinds</td></tr>
-          <tr style="background:white;"><td style="padding:7px 12px;border-bottom:1px solid #eee;">Q1 2025</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$1.48B</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">10.5%</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$49M</td><td style="padding:7px 12px;border-bottom:1px solid #eee;">Wage integration ongoing (+31% labor cost); production efficiency rebuilding</td></tr>
-          <tr style="background:#f9fafb;"><td style="padding:7px 12px;border-bottom:1px solid #eee;">Q2 2025</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$1.57B</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">11.2%</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$53M</td><td style="padding:7px 12px;border-bottom:1px solid #eee;">Cessna SkyCourier certification milestones; King Air deliveries recovering</td></tr>
-          <tr style="background:white;"><td style="padding:7px 12px;border-bottom:1px solid #eee;">Q3 2025</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$1.68B</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">11.8%</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$56M</td><td style="padding:7px 12px;border-bottom:1px solid #eee;">Longitude ramp continues; Bell eVTOL synergies explored with Textron Aviation tech</td></tr>
-          <tr style="background:#f9fafb;"><td style="padding:7px 12px;border-bottom:1px solid #eee;">Q4 2025</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$1.74B</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">12.4%</td><td style="padding:7px 12px;text-align:right;border-bottom:1px solid #eee;">$58M</td><td style="padding:7px 12px;border-bottom:1px solid #eee;">FY2025 guidance +11%; margin recovery on track; Beechcraft Denali first deliveries</td></tr>
-        </tbody>
-      </table>
+  
+  <!-- CHARTS: Textron Aviation Financial Health -->
+  <div style="background:white;border-radius:10px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:16px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;color:#1a237e;">📈 Financial Trend Analysis — 8-Quarter View</div>
+    <div style="font-size:11px;color:#666;margin-bottom:18px;">Ticker: TXT (NYSE) &nbsp;|&nbsp; Currency: $B &nbsp;|&nbsp; Hover charts for detail</div>
+
+    <!-- Row 1: Revenue + Margin -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#1a237e;margin-bottom:8px;">💰 Revenue Trend ($B)</div>
+        <canvas id="rev_textron" style="max-height:260px;"></canvas>
+        <div style="margin-top:10px;padding:10px;background:#f8f9ff;border-left:3px solid #1a237e;border-radius:4px;font-size:11px;line-height:1.7;color:#333;">Textron Aviation's revenue shows one of the most dramatic single-quarter drops in aerospace history — Q3 2024 fell to $1.19B (from $1.51B in Q2) as a 28-day IAM machinists' strike halted Cessna and Beechcraft production. The $30M+ revenue impact and production disruption triggered a rapid recovery: Q4 2024 jumped to $1.63B (+37% QoQ). By Q4 2025, Textron Aviation reached $1.74B as Longitude production normalised, King Air deliveries recovered, and Beechcraft Denali achieved first deliveries. <strong>Cyient angle:</strong> Labour disruption vulnerability is Textron Aviation's structural risk — engineering services outsourcing to Cyient reduces dependence on unionised internal engineering for documentation and analysis work.</div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#1a237e;margin-bottom:8px;">📊 Operating Margin %</div>
+        <canvas id="mg_textron" style="max-height:260px;"></canvas>
+        <div style="margin-top:10px;padding:10px;background:#f8f9ff;border-left:3px solid #1a237e;border-radius:4px;font-size:11px;line-height:1.7;color:#333;">The margin collapse to 4.2% in Q3 2024 (strike quarter) is the defining signal — fixed costs with near-zero revenue. Recovery to 11.1% in Q4 2024 and ongoing improvement to 12.4% by Q4 2025 reflects post-strike wage integration (+31% labour cost increase) being offset by productivity gains. The 12.4% target implies Textron Aviation is operating at near-normal levels. <strong>Cyient angle:</strong> Post-strike wage inflation (+31%) is permanent — engineering cost reduction is essential. Cyient's Hyderabad-based engineering for avionics documentation, airframe analysis, and certification support directly offsets Wichita wage inflation.</div>
+      </div>
+    </div>
+
+    <!-- Row 2: R&D + CapEx -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#1a237e;margin-bottom:8px;">🔬 R&amp;D Spend ($M)</div>
+        
+      <canvas id="rd_textron" style="max-height:260px;"></canvas>
+        <div style="margin-top:10px;padding:10px;background:#f8f9ff;border-left:3px solid #1a237e;border-radius:4px;font-size:11px;line-height:1.7;color:#333;">R&D fell sharply to $38M in Q3 2024 (strike quarter) then recovered. By Q4 2025, $58M/quarter reflects ongoing Cessna SkyCourier ramp, Longitude continuous improvement, King Air 360 avionics modernisation, and Beechcraft Denali turboprop (PT6E-66XT engine integration) engineering. R&D intensity at ~3.3% of revenue is modest but stable. <strong>Cyient angle:</strong> Denali development and SkyCourier certification are active engineering programmes — type certificate support, MMEL, AFM documentation, and DO-178C avionics verification are Cyient capabilities directly applicable.</div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#1a237e;margin-bottom:8px;">🏗️ CapEx ($M)</div>
+        
+      <canvas id="cx_textron" style="max-height:260px;"></canvas>
+        <div style="margin-top:10px;padding:10px;background:#f8f9ff;border-left:3px solid #1a237e;border-radius:4px;font-size:11px;line-height:1.7;color:#333;">CapEx collapsed to $45M in Q3 2024 (strike) then rebounded to $72M in Q4 2024 as deferred capital projects were executed. By Q4 2025, $78M/quarter reflects Wichita facility upgrades (new Longitude assembly bay), Denali flight test facility, and Cessna SkyCourier tooling. The recovery of CapEx signals genuine confidence in post-strike production normalisation. <strong>Cyient angle:</strong> Textron Aviation's Wichita manufacturing investment creates demand for manufacturing process engineering, tooling design, and lean production documentation — deliverable by Cyient's aerospace manufacturing practice.</div>
+      </div>
     </div>
   </div>
+
+  <script>
+  (function(){
+    var qs = ["Q1'24","Q2'24","Q3'24","Q4'24","Q1'25","Q2'25","Q3'25","Q4'25"];
+    var accent = '#1a237e';
+    function hexToRgba(hex, alpha) {
+      var r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+      return 'rgba('+r+','+g+','+b+','+alpha+')';
+    }
+    var aFill = hexToRgba(accent, 0.15);
+    var aBorder = hexToRgba(accent, 0.85);
+
+    // Revenue chart
+    new Chart(document.getElementById('rev_textron'), {
+      type: 'bar',
+      data: {
+        labels: qs,
+        datasets: [{
+          label: 'Revenue ($B)',
+          data: [1.42,1.51,1.19,1.63,1.48,1.57,1.68,1.74],
+          backgroundColor: hexToRgba(accent, 0.75),
+          borderColor: aBorder,
+          borderWidth: 1.5,
+          borderRadius: 4,
+          yAxisID: 'y'
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: true,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c){ return ' '+c.raw+' $B'; } } } },
+        scales: {
+          y: { beginAtZero: false, grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: {size:10} } },
+          x: { grid: { display: false }, ticks: { font: {size:9}, maxRotation: 45 } }
+        }
+      }
+    });
+
+    // Margin chart
+    var mgData = [12.3,12.8,4.2,11.1,10.5,11.2,11.8,12.4];
+    new Chart(document.getElementById('mg_textron'), {
+      type: 'line',
+      data: {
+        labels: qs,
+        datasets: [{
+          label: 'Op. Margin %',
+          data: mgData,
+          pointBackgroundColor: ["rgba(46,125,50,0.85)","rgba(46,125,50,0.85)","rgba(245,127,23,0.85)","rgba(46,125,50,0.85)","rgba(46,125,50,0.85)","rgba(46,125,50,0.85)","rgba(46,125,50,0.85)","rgba(46,125,50,0.85)"],
+          pointBorderColor: ["rgba(46,125,50,0.85)","rgba(46,125,50,0.85)","rgba(245,127,23,0.85)","rgba(46,125,50,0.85)","rgba(46,125,50,0.85)","rgba(46,125,50,0.85)","rgba(46,125,50,0.85)","rgba(46,125,50,0.85)"],
+          pointRadius: 5,
+          borderColor: hexToRgba(accent, 0.7),
+          backgroundColor: function(ctx){
+            var canvas=ctx.chart.canvas, gradient=canvas.getContext('2d').createLinearGradient(0,0,0,200);
+            gradient.addColorStop(0, hexToRgba(accent, 0.25));
+            gradient.addColorStop(1, 'rgba(255,255,255,0.01)');
+            return gradient;
+          },
+          fill: true, tension: 0.3
+        },{
+          label: 'Zero line',
+          data: qs.map(function(){ return 0; }),
+          borderColor: 'rgba(180,0,0,0.3)',
+          borderWidth: 1,
+          borderDash: [4,4],
+          pointRadius: 0,
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: true,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c){ return c.datasetIndex===0?' '+c.raw+'%':''; } } } },
+        scales: {
+          y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { callback: function(v){ return v+'%'; }, font: {size:10} } },
+          x: { grid: { display: false }, ticks: { font: {size:9}, maxRotation: 45 } }
+        }
+      }
+    });
+
+    // R&D chart
+    var rdEl = document.getElementById('rd_textron');
+    if(rdEl) {
+      new Chart(rdEl, {
+        type: 'bar',
+        data: {
+          labels: qs,
+          datasets: [{
+            label: 'R&D ($M)',
+            data: [48,51,38,52,49,53,56,58],
+            backgroundColor: 'rgba(13,71,161,0.7)',
+            borderColor: 'rgba(13,71,161,0.9)',
+            borderWidth: 1.5,
+            borderRadius: 4
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: true,
+          plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c){ return ' '+c.raw+' $M'; } } } },
+          scales: {
+            y: { beginAtZero: false, grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: {size:10} } },
+            x: { grid: { display: false }, ticks: { font: {size:9}, maxRotation: 45 } }
+          }
+        }
+      });
+    }
+
+    // CapEx chart
+    var cxEl = document.getElementById('cx_textron');
+    if(cxEl) {
+      new Chart(cxEl, {
+        type: 'bar',
+        data: {
+          labels: qs,
+          datasets: [{
+            label: 'CapEx ($M)',
+            data: [62,67,45,72,65,69,74,78],
+            backgroundColor: 'rgba(56,142,60,0.7)',
+            borderColor: 'rgba(27,94,32,0.9)',
+            borderWidth: 1.5,
+            borderRadius: 4
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: true,
+          plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c){ return ' '+c.raw+' $M'; } } } },
+          scales: {
+            y: { beginAtZero: false, grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: {size:10} } },
+            x: { grid: { display: false }, ticks: { font: {size:9}, maxRotation: 45 } }
+          }
+        }
+      });
+    }
+
+  })();
+  </script>
+  <!-- END CHARTS: Textron Aviation -->
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
     <div style="background:white;border-radius:10px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
